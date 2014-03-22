@@ -36,7 +36,6 @@ routes.router(app);
 var server = http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
-var ios = socket.listen(server).on('connection', function(socket){
-	console.log('connection::', socket);
-	setListener.SetListener(socket);
+socket.listen(server).on('connection', function(socket){
+	config.socket = socket;
 });
