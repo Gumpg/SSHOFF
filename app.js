@@ -8,7 +8,8 @@ var routes = require('./routes/router');
 var http = require('http');
 var path = require('path');
 var config = require('./config/config');
-// var setListener = require('./control/listenerFile');
+var setListener = require('./control/listenerFile');
+var socket = require('socket.io');
 
 var app = express();
 
@@ -31,8 +32,11 @@ if ('development' == app.get('env')) {
 
 routes.router(app);
 
-// setListener.SetListener();
 
-http.createServer(app).listen(app.get('port'), function(){
+var server = http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
+});
+var ios = socket.listen(server).on('connection', function(socket){
+	console.log('connection::', socket);
+	setListener.SetListener(socket);
 });
