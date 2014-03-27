@@ -38,4 +38,6 @@ var server = http.createServer(app).listen(app.get('port'), function(){
 });
 socket.listen(server).on('connection', function(socket){
 	config.socket = socket;
+	setListener.SetListener();
 });
+
